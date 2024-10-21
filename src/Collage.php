@@ -344,36 +344,28 @@ class Collage
                 }
                 $drawDashedLine = true;
 
-                $degrees = 90;
-                $images_rotated = [];
-                for ($i = 0; $i < 4; $i++) {
-                    if (!file_exists($editImages[$i])) {
-                        return false;
-                    }
-
-                    $tempSubImage = $imageHandler->createFromImage($editImages[$i]);
-                    if (!$tempSubImage instanceof \GdImage) {
-                        throw new \Exception('Failed to create tempSubImage resource.');
-                    }
-
-                    if ($c->collageTakeFrame === 'always') {
-                        $tempSubImage = $imageHandler->applyFrame($tempSubImage);
-                    }
-
-                    $tempSubImage = imagerotate($tempSubImage, $degrees, $bg_color_hex);
-                    if (!$tempSubImage instanceof \GdImage) {
-                        throw new \Exception('Failed to rotate tempSubImage resource.');
-                    }
-                    $imageHandler->resizeMaxWidth = intval($height / 3.3);
-                    $imageHandler->resizeMaxHeight = intval($width / 3.5);
-                    $images_rotated[] = $imageHandler->resizeImage($tempSubImage);
+                if (!file_exists($editImages[0])) {
+                    return false;
                 }
 
-                if (!$images_rotated[0] instanceof \GdImage) {
+                $tempSubImage = $imageHandler->createFromImage($editImages[0]);
+                if (!$tempSubImage instanceof \GdImage) {
+                    throw new \Exception('Failed to create tempSubImage resource.');
+                }
+
+                $tempSubImage = imagerotate($tempSubImage, 90, $bg_color_hex);
+                if (!$tempSubImage instanceof \GdImage) {
+                    throw new \Exception('Failed to rotate tempSubImage resource.');
+                }
+                $imageHandler->resizeMaxWidth = intval($height / 3.3);
+                $imageHandler->resizeMaxHeight = intval($width / 3.5);
+                $tempSubImage = $imageHandler->resizeImage($tempSubImage);
+
+                if (!$tempSubImage instanceof \GdImage) {
                     throw new \Exception('Failed to resize tempSubImage resource.');
                 }
-                $new_width = (int)imagesx($images_rotated[0]);
-                $new_height = (int)imagesy($images_rotated[0]);
+                $new_width = (int)imagesx($tempSubImage);
+                $new_height = (int)imagesy($tempSubImage);
 
                 $height_offset = intval(($height / 2 - $new_height) / 2);
                 $width_offset = intval(($width - $new_width * 4) / 5);
@@ -389,6 +381,7 @@ class Collage
                     [$width_offset * 4 + 3 * $new_width, $new_height + 3 * $height_offset, $new_width, $new_height, 90, false],
                 ];
                 imagescale($my_collage, $width, $height);
+                unset ($tempSubImage);
 
                 break;
             case '2x4-2':
