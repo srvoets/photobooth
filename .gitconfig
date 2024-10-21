@@ -1,0 +1,5 @@
+[safe]
+	directory = /var/www/html
+	directory = /var/www/html/vendor/Seriously
+	directory = /var/www/html
+	directory = /var/www/html/vendor/Seriously

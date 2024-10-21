@@ -1,0 +1,19 @@
+0 verbose cli /usr/bin/node /usr/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@10.8.2
+2 info using node@v20.18.0
+3 silly config load:file:/usr/lib/node_modules/npm/npmrc
+4 silly config load:file:/var/www/html/.npmrc
+5 silly config load:file:/var/www/.npmrc
+6 silly config load:file:/usr/etc/npmrc
+7 verbose title npm run format:js
+8 verbose argv "run" "format:js"
+9 verbose logfile logs-max:10 dir:/var/www/.npm/_logs/2024-10-19T19_53_55_730Z-
+10 verbose logfile /var/www/.npm/_logs/2024-10-19T19_53_55_730Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 verbose cwd /var/www/html
+14 verbose os Linux 6.6.51+rpt-rpi-2712
+15 verbose node v20.18.0
+16 verbose npm  v10.8.2
+17 verbose exit 0
+18 info ok
